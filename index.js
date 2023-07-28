@@ -203,20 +203,23 @@ function updateEmployee() {
             choices: roles,
           },
         ])
-        .then((answers) => {
+        .then(({role_id, employee_id}) => {
           db.query(
             "UPDATE employee SET role_id = ? WHERE id = ?",
-            answers,
+           [
+            role_id,
+            employee_id,
+          ],
             function (err) {
               if (err) throw err;
               console.log("Employee Updated");
               setTimeout(mainQuestion, 2000);
             }
           );
-          db.query("UPDATE employee SET role_id = ? WHERE id = ?", [
-            roleId,
-            employeeId,
-          ]);
+          // db.query("UPDATE employee SET role_id = ? WHERE id = ?", [
+          //   role_id,
+          //   employee_id,
+          // ]);
         });
     });
   });
